@@ -11,6 +11,9 @@ int ORIGIN_Y = 800;
 bool gravity = true;
 int gravity_value = 1;
 
+constexpr unsigned int lifetime_step = 250;
+unsigned int lifetime = 10000;
+
 float angle = 90.0f;
 
 constexpr float PI = 3.14159265;
@@ -19,15 +22,15 @@ constexpr float PI = 3.14159265;
 
 void init_cinder(Cinder& cinder) {
 	
-	cinder.x = ORIGIN_X - 5 + rand() % 16;
-	cinder.y = ORIGIN_Y - rand() % 4;
+	cinder.x = ORIGIN_X - 5 + rand() % 15;
+	cinder.y = ORIGIN_Y - 2 + rand() % 10;
 
 	cinder.vel_x = (-2 + rand() % 5) * 1.0f;
-	cinder.vel_y = (-10 + rand() % 5) * 1.0f;
+	cinder.vel_y = (-7 + rand() % 5) * 1.0f;
 
 	//cinders[i].color = SDL_Color(255, 0, 0);
 
-	cinder.lifetime = 20 + rand() % 10000;
+	cinder.lifetime = 20 + rand() % lifetime;
 	//cinders[i].lifetime = 60;
 
 	cinder.color_counter = 0;
@@ -77,6 +80,17 @@ void move_x(float amount) {
 }
 void move_y(float amount) {
 	ORIGIN_Y += amount;
+}
+
+void increase_lifetime() {
+	lifetime += lifetime_step;
+}
+
+void decrease_lifetime() {
+	lifetime -= lifetime_step;
+
+	if (lifetime < 1)
+		lifetime += lifetime_step;
 }
 
 void toggle_gravity() {

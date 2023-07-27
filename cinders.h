@@ -39,6 +39,8 @@ void move_y(float amount);
 void rotate_left(Cinders& cinders);
 void rotate_right();
 void toggle_gravity();
+void increase_lifetime();
+void decrease_lifetime();
 //void increase_gravity();
 //void decrease_gravity();
 

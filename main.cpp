@@ -9,6 +9,7 @@
 #include "cinders.h"
 
 int main(int argc, char* args[]) {
+
 	srand(time(nullptr));
 	SDL_Init(SDL_INIT_VIDEO | SDL_INIT_TIMER);
 	SDL_Window* window = window = SDL_CreateWindow(
@@ -70,6 +71,12 @@ int main(int argc, char* args[]) {
 
 				if (event.key.keysym.sym == SDLK_g) {
 					toggle_gravity();
+				}
+				else if (event.key.keysym.sym == SDLK_p) {
+					increase_lifetime();
+				}
+				else if (event.key.keysym.sym == SDLK_o) {
+					decrease_lifetime();
 				}
 				else if (event.key.keysym.sym == SDLK_t) {
 					//decrease_gravity();
