@@ -166,11 +166,12 @@ void draw_cinders(SDL_Renderer* renderer, Cinders& cinders) {
 		}
 
 		if (cinders[i].y >= 0 && cinders[i].y < 800) {
-			SDL_Rect r;
-			r.x = cinders[i].x;
-			r.y = cinders[i].y;
-			r.w = 2;
-			r.h = 2;
+			SDL_Rect r = {
+				.x = static_cast<int>(cinders[i].x),
+				.y = static_cast<int>(cinders[i].y),
+				.w = 2,
+				.h = 2
+			};
 			SDL_RenderFillRect(renderer, &r);
 		}
 	}
