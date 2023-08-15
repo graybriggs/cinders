@@ -33,7 +33,7 @@ void platform_init() {
 
 	srand((unsigned int)time(NULL));
 	SDL_Init(SDL_INIT_VIDEO | SDL_INIT_TIMER);
-	platform_window_setup(&win_info, 1024, 7698, "Particle demo");
+	platform_window_setup(&win_info, 1024, 768, "Particle demo");
 }
 
 void platform_pump_events() {
