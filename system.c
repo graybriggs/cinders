@@ -17,7 +17,7 @@ static uint32_t updates_per_second;
 
 void system_init() {
 
-	render_init(window);
+	render_init(platform_get_window());
 
 	accumulator = 0.0f;
 	frame_start = platform_get_ticks();
@@ -26,7 +26,8 @@ void system_init() {
 
 
 void system_update() {
-	const float currentTime = platform_get_ticks();
+
+	float currentTime = platform_get_ticks();
 	accumulator += currentTime - frame_start;
 	frame_start = currentTime;
 	updates_per_second = 0;
@@ -45,11 +46,11 @@ void system_update() {
 	}
 
 
-	// render_begin_frame();
+	render_begin_frame();
 
 	// update()
 
-	// render_end_frame();
+	render_end_frame();
 
 	// input_clear();
 

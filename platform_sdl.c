@@ -6,18 +6,25 @@
 #include "platform_sdl.h"
 #include "system.h"
 
+static SDL_Window* window = NULL;
+static window_info win_info = { 0 };
+static bool app_done = false;
+static SDL_Event event;
+
 void platform_window_setup(window_info* win_info, uint32_t w, uint32_t h, const char* win_name) {
 
 	strcpy(win_info->window_name, win_name);
 
-	SDL_Window* window = window = SDL_CreateWindow(
-		"Particles",
+	window = SDL_CreateWindow(
+		win_info->window_name,
 		SDL_WINDOWPOS_UNDEFINED,
 		SDL_WINDOWPOS_UNDEFINED,
 		1200, 800,
 		SDL_WINDOW_SHOWN
 	);
-
+	if (window == NULL) {
+		exit(1);
+	}
 }
 
 void platform_init() {
@@ -30,14 +37,19 @@ void platform_init() {
 }
 
 void platform_pump_events() {
+
+	while (SDL_PollEvent(&event)) {
+		if (event.type == SDL_QUIT)
+			app_done = true;
+	}
+
 	// nothing yet
 }
 
 void platform_run() {
 
-	
 	platform_init();
-
+	system_init();
 
 	while (!app_done) {
 
@@ -59,4 +71,8 @@ void platform_cleanup() {
 
 Uint32 platform_get_ticks() {
 	return SDL_GetTicks();
+}
+
+SDL_Window* platform_get_window() {
+	return window;
 }

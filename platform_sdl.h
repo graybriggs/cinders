@@ -15,9 +15,6 @@ typedef struct {
 	uint32_t height;
 } window_info;
 
-static SDL_Window* window = NULL;
-static window_info win_info = { 0 };
-static bool app_done = false;
 
 void platform_window_setup(window_info* win_info, uint32_t w, uint32_t h, const char* win_name);
 void platform_init();
@@ -29,3 +26,4 @@ void platform_run();
 void platform_cleanup();
 
 Uint32 platform_get_ticks();
+SDL_Window* platform_get_window();
