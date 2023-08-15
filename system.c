@@ -5,6 +5,7 @@
 #include "render.h"
 #include "system.h"
 
+#include "cinders.h"
 
 static float accumulator;
 static float frame_start;
@@ -45,10 +46,15 @@ void system_update() {
 		++updates_per_second;
 	}
 
+	cinder_update(dt);
 
 	render_begin_frame();
 
-	// update()
+	// render_cinders();
+	for (int i = 0; i < MAX_CINDERS; ++i) {
+		cinder c = cinder_get(i);
+		render_push_cinder(c.pos, RED);
+	}
 
 	render_end_frame();
 

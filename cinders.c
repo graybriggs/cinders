@@ -24,6 +24,32 @@ void cinder_init() {
 	// nothing
 }
 
+void cinder_reset(uint32_t index) {
+	cinders[index].pos.x = (float)ORIGIN_X - 5 + rand() % 15;
+	cinders[index].pos.y = (float)ORIGIN_Y - 2 + rand() % 10;
+
+	cinders[index].vel.x = (-2 + rand() % 5) * 1.0f;
+	//cinders[i].vel.x *= -std::cos(degrees_to_radians(angle));
+
+	cinders[index].vel.y = (-7 + rand() % 5) * 1.0f;
+	//cinders[i].vel.y *= std::sin(degrees_to_radians(angle));
+
+	cinders[index].color = rand() % 6;
+	//cinders[i].color = SDL_Color(255, 0, 0);
+
+	cinders[index].lifetime = 20 + rand() % lifetime;
+	//cinders[i].lifetime = 60;
+
+	cinders[index].color_counter = 0;
+
+	cinders[index].gravity_counter = 0;
+
+	// how long it will take cinder to cool
+	cinders[index].color_threshold = 4 + rand() % 8;
+	// how long it will take for gravity to take effect.
+	cinders[index].gravity_threshold = 1 + rand() % 1500;
+}
+
 void cinder_init_all() {
 
 	for (uint32_t i = 0; i < MAX_CINDERS; ++i) {
@@ -74,6 +100,47 @@ void cinder_move(vec2 a) {
 
 void cinder_gravity_toggle() {
 	gravity = !gravity;
+}
+
+
+void cinder_update(float dt) {
+
+	for (int i = 0; i < MAX_CINDERS; ++i) {
+
+		cinders[i].pos.x += cinders[i].vel.x * dt;
+		cinders[i].pos.y += cinders[i].vel.y * dt;
+
+		// apply gravity
+
+		if (gravity) {
+			cinders[i].gravity_counter++;
+
+			if (cinders[i].gravity_counter >= cinders[i].gravity_threshold) {
+				cinders[i].vel.y++;
+
+				cinders[i].gravity_counter = 0;
+			}
+		}
+
+		cinders[i].lifetime--;
+
+		if (cinders[i].lifetime <= 0) {
+			cinder_reset(i);
+		}
+
+		else if (cinders[i].pos.x <= 0 || cinders[i].pos.x > 1200) {
+			cinder_reset(i);
+		}
+
+		else if (cinders[i].pos.y > 800) {
+			cinder_reset(i);
+		}
+
+	}
+}
+
+cinder cinder_get(uint32_t index) {
+	return cinders[index];
 }
 
 
