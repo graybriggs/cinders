@@ -1,11 +1,52 @@
 #pragma once
 
-#include <algorithm>
-#include <array>
-#include <cstdlib>
-#include <vector>
-
 #include <SDL.h>
+
+#include <stdint.h>
+#include <math.h>
+
+#include "types.h"
+
+
+typedef struct {
+
+	vec2 pos;
+	vec2 vel;
+	uint32_t lifetime;
+	uint32_t color;
+	uint32_t color_counter;
+	uint32_t color_threshold;
+	uint32_t gravity_counter;
+	uint32_t gravity_threshold;
+
+	uint32_t current_color;
+} cinder;
+
+#define MAX_CINDERS 512
+
+
+
+
+
+void cinder_init();
+void cinder_init_all();
+void cinder_reset_all();
+void cinder_move_x(float amount);
+void cinder_move_y(float amount);
+void cinder_move(vec2 a);
+void cinder_rotate_left();
+void cinder_rotate_right();
+void cinder_toggle_gravity();
+void cinder_increase_lifetime();
+void cinder_decrease_lifetime();
+//void cinder_increase_gravity();
+//void cinder_decrease_gravity();
+
+//void cinder_move(Cinders& cinders, double dt);
+//void cinder_draw(SDL_Renderer* renderer, Cinders& cinders);
+
+
+/*
 
 struct Cinder {
 	float x;
@@ -13,7 +54,8 @@ struct Cinder {
 	float vel_x;
 	float vel_y;
 	int lifetime;
-	SDL_Color color;
+	int color;
+	//SDL_Color color;
 	// tracks when color will change
 	int color_counter;  
 	int color_threshold;
@@ -31,7 +73,7 @@ typedef std::array<Cinder, MAX_CINDERS> Cinders;
 //Cinders cinders;
 
 
-void init_cinder(Cinder& cinder);
+void cinder_init(Cinder& cinder);
 void init_all_cinders(Cinders& cinders);
 
 void move_x(float amount);
@@ -48,4 +90,6 @@ void move_cinders(Cinders& cinders, double dt);
 void draw_cinders(SDL_Renderer* renderer, Cinders& cinders);
 
 
-float angle_to_radians(float angle);
+float degrees_to_radians(float angle);
+
+*/
