@@ -15,8 +15,8 @@ static int ORIGIN_Y = 800;
 static bool gravity = true;
 static uint32_t gravity_value = 1;
 
-static uint32_t lifetime_step = 250;
-static uint32_t lifetime = 10000;
+static uint32_t lifetime_step = 1;
+static uint32_t lifetime = 123;
 
 static float angle = 90.0f;
 
@@ -28,17 +28,17 @@ void cinder_reset(uint32_t index) {
 	cinders[index].pos.x = (float)ORIGIN_X - 5 + rand() % 15;
 	cinders[index].pos.y = (float)ORIGIN_Y - 2 + rand() % 10;
 
-	cinders[index].vel.x = (-2 + rand() % 5) * 1.0f;
+	cinders[index].vel.x = (-2 + rand() % 5) * 1.00f;
 	//cinders[i].vel.x *= -std::cos(degrees_to_radians(angle));
 
-	cinders[index].vel.y = (-7 + rand() % 5) * 1.0f;
+	cinders[index].vel.y = (-7 + rand() % 5) * 1.00f;
 	//cinders[i].vel.y *= std::sin(degrees_to_radians(angle));
 
 	cinders[index].color = rand() % 6;
 	//cinders[i].color = SDL_Color(255, 0, 0);
 
-	cinders[index].lifetime = 20 + rand() % lifetime;
-	//cinders[i].lifetime = 60;
+	//cinders[index].lifetime = 20 + rand() % lifetime;
+	//cinders[index].lifetime = 60;
 
 	cinders[index].color_counter = 0;
 
@@ -57,10 +57,10 @@ void cinder_init_all() {
 		cinders[i].pos.x = (float)ORIGIN_X - 5 + rand() % 15;
 		cinders[i].pos.y = (float)ORIGIN_Y - 2 + rand() % 10;
 
-		cinders[i].vel.x = (-2 + rand() % 5) * 1.0f;
+		cinders[i].vel.x = (-2 + rand() % 5) * 1.05f;
 		//cinders[i].vel.x *= -std::cos(degrees_to_radians(angle));
 
-		cinders[i].vel.y = (-7 + rand() % 5) * 1.0f;
+		cinders[i].vel.y = (-7 + rand() % 5) * 1.01f;
 		//cinders[i].vel.y *= std::sin(degrees_to_radians(angle));
 
 		cinders[i].color = rand() % 6;
@@ -122,7 +122,7 @@ void cinder_update(float dt) {
 			}
 		}
 
-		cinders[i].lifetime--;
+		cinders[i].lifetime -= lifetime_step;
 
 		if (cinders[i].lifetime <= 0) {
 			cinder_reset(i);
@@ -145,22 +145,6 @@ cinder cinder_get(uint32_t index) {
 
 
 /*
-
-
-int ORIGIN_X = 600;
-int ORIGIN_Y = 800;
-
-bool gravity = true;
-int gravity_value = 1;
-
-constexpr unsigned int lifetime_step = 250;
-unsigned int lifetime = 10000;
-
-float angle = 90.0f;
-
-constexpr float PI = 3.14159265;
-
-
 
 void init_cinder(Cinder& cinder) {
 	
@@ -278,51 +262,5 @@ void move_cinders(Cinders& cinders, double dt) {
 
 	}
 }
-
-void draw_cinders(SDL_Renderer* renderer, Cinders& cinders) {
-
-	for (int i = 0; i < cinders.size(); ++i) {
-
-		switch (cinders[i].color) {
-		case 0:
-			SDL_SetRenderDrawColor(renderer, 25, 0, 255, 255);
-			break;
-		case 1:
-			SDL_SetRenderDrawColor(renderer, 255, 0, 0, 255);
-			break;
-		case 2:
-			SDL_SetRenderDrawColor(renderer, 0, 255, 255, 255);
-			break;
-		case 3:
-			SDL_SetRenderDrawColor(renderer, 0, 255, 0, 255);
-			break;
-		case 4:
-			SDL_SetRenderDrawColor(renderer, 255, 255, 0, 255);
-			break;
-		case 5:
-			SDL_SetRenderDrawColor(renderer, 255, 0, 255, 255);
-			break;
-		case 6:
-			SDL_SetRenderDrawColor(renderer, 255, 255, 255, 255);
-			break;
-		}
-
-		if (cinders[i].y >= 0 && cinders[i].y < 800) {
-			SDL_Rect r = {
-				.x = static_cast<int>(cinders[i].x),
-				.y = static_cast<int>(cinders[i].y),
-				.w = 2,
-				.h = 2
-			};
-			SDL_RenderFillRect(renderer, &r);
-		}
-	}
-}
-
-float degrees_to_radians(float angle) {
-	// C++20 has std::numbers::pi
-	return angle * PI / 180;
-}
-
 
 */

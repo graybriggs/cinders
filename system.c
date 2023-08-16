@@ -1,4 +1,6 @@
 
+#include <stdio.h>
+
 #include <stdint.h>
 
 #include "platform_sdl.h"
@@ -22,9 +24,7 @@ void system_init() {
 
 	accumulator = 0.0f;
 	frame_start = platform_get_ticks();
-
 }
-
 
 void system_update() {
 
@@ -40,13 +40,13 @@ void system_update() {
 
 	while (accumulator > dt) {
 
-		//move_cinders(cinders, dt);
+		cinder_update(dt);
 
 		accumulator -= dt;
 		++updates_per_second;
 	}
 
-	cinder_update(dt);
+	
 
 	render_begin_frame();
 
