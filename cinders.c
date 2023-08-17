@@ -53,30 +53,7 @@ void cinder_reset(uint32_t index) {
 void cinder_init_all() {
 
 	for (uint32_t i = 0; i < MAX_CINDERS; ++i) {
-
-		cinders[i].pos.x = (float)ORIGIN_X - 5 + rand() % 15;
-		cinders[i].pos.y = (float)ORIGIN_Y - 2 + rand() % 10;
-
-		cinders[i].vel.x = (-2 + rand() % 5) * 1.05f;
-		//cinders[i].vel.x *= -std::cos(degrees_to_radians(angle));
-
-		cinders[i].vel.y = (-7 + rand() % 5) * 1.01f;
-		//cinders[i].vel.y *= std::sin(degrees_to_radians(angle));
-
-		cinders[i].color = rand() % 6;
-		//cinders[i].color = SDL_Color(255, 0, 0);
-
-		cinders[i].lifetime = 20 + rand() % lifetime;
-		//cinders[i].lifetime = 60;
-
-		cinders[i].color_counter = 0;
-
-		cinders[i].gravity_counter = 0;
-
-		// how long it will take cinder to cool
-		cinders[i].color_threshold = 4 + rand() % 8;
-		// how long it will take for gravity to take effect.
-		cinders[i].gravity_threshold = 1 + rand() % 1500;
+		cinder_reset(i);
 	}
 }
 
