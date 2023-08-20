@@ -3,6 +3,12 @@
 
 #include <SDL.h>
 
+#include <stdio.h>
+#include <stdbool.h>
+#include <stdlib.h>
+#include <string.h>
+#include <time.h>
+
 #include "platform_sdl.h"
 #include "system.h"
 
@@ -34,6 +40,8 @@ void platform_init() {
 	srand((unsigned int)time(NULL));
 	SDL_Init(SDL_INIT_VIDEO | SDL_INIT_TIMER);
 	platform_window_setup(&win_info, 1024, 768, "Particle demo");
+
+	input_init();
 }
 
 void platform_pump_events() {
@@ -41,9 +49,13 @@ void platform_pump_events() {
 	while (SDL_PollEvent(&event)) {
 		if (event.type == SDL_QUIT)
 			app_done = true;
+		if (event.type == SDL_KEYDOWN) {
+			int code = event.key.keysym.scancode;
+			int internal_code = code - 79;
+			printf("%d | %d\n", code, internal_code);
+			input_set_button_pressed(internal_code);
+		}
 	}
-
-	// nothing yet
 }
 
 void platform_run() {
