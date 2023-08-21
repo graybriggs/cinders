@@ -51,7 +51,7 @@ void system_update() {
 	render_begin_frame();
 
 	// render_cinders();
-	for (int i = 0; i < MAX_CINDERS; ++i) {
+	for (int i = 0; i < CINDERS_MAX; ++i) {
 		cinder c = cinder_get(i);
 		render_push_cinder(c.pos, RED);
 	}

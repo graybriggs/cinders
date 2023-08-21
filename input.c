@@ -11,7 +11,9 @@ static const char* button_names[] = {
 	[INPUT_KEY_DOWN] = "DOWN",
 	[INPUT_KEY_LEFT] = "LEFT",
 	[INPUT_KEY_RIGHT] = "RIGHT",
-	[INPUT_KEY_G] = "G"
+	[INPUT_KEY_G] = "G",
+	[INPUT_KEY_X] = "X",
+	[INPUT_KEY_Z] = "Y"
 };
 
 
@@ -29,19 +31,21 @@ void input_set_button_state(button_t button, float state) {
 
 void input_set_button_pressed(button_t button) {
 
+	/*
 	if (button < 0 || button > INPUT_BUTTON_MAX) {
 		printf("Invaid button press\n");
 		return;
 	}
+	*/
 
 	key_bindings[button] = true;
 }
 
 void input_set_button_released(button_t button) {
 
-	if (button < 0 || button > INPUT_BUTTON_MAX) {
-		return;
-	}
+	//if (button < 0 || button > INPUT_BUTTON_MAX) {
+	//	return;
+	//}
 
 	key_bindings[button] = false;
 }
