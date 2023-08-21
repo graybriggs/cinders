@@ -7,16 +7,21 @@
 
 #include "cinders.h"
 
+////////////////
+#include "input.h"
+
+////////////////
+
 static cinder cinders[MAX_CINDERS];
 
-static int ORIGIN_X = 600;
-static int ORIGIN_Y = 800;
+static float ORIGIN_X = 600;
+static float ORIGIN_Y = 800;
 
 static bool gravity = true;
 static uint32_t gravity_value = 1;
 
 static uint32_t lifetime_step = 1;
-static uint32_t lifetime = 123;
+static uint32_t lifetime = 99000;
 
 static float angle = 90.0f;
 
@@ -29,23 +34,16 @@ void cinder_reset(uint32_t index) {
 	cinders[index].pos.y = (float)ORIGIN_Y - 2 + rand() % 10;
 
 	cinders[index].vel.x = (-2 + rand() % 5) * 1.00f;
-	//cinders[i].vel.x *= -std::cos(degrees_to_radians(angle));
-
-	cinders[index].vel.y = (-7 + rand() % 5) * 1.00f;
-	//cinders[i].vel.y *= std::sin(degrees_to_radians(angle));
+	cinders[index].vel.y = (-7 + rand() % 5) * 1.01f;
 
 	cinders[index].color = rand() % 6;
-	//cinders[i].color = SDL_Color(255, 0, 0);
 
-	//cinders[index].lifetime = 20 + rand() % lifetime;
-	//cinders[index].lifetime = 60;
+	cinders[index].lifetime = 20 + rand() % lifetime;
 
 	cinders[index].color_counter = 0;
+	cinders[index].color_threshold = 4 + rand() % 8;
 
 	cinders[index].gravity_counter = 0;
-
-	// how long it will take cinder to cool
-	cinders[index].color_threshold = 4 + rand() % 8;
 	// how long it will take for gravity to take effect.
 	cinders[index].gravity_threshold = 1 + rand() % 1500;
 }
@@ -82,6 +80,14 @@ void cinder_gravity_toggle() {
 
 void cinder_update(float dt) {
 
+	if (input_state_button(INPUT_KEY_RIGHT)) {
+		cinder_move_x(-0.1);
+	}
+	else if (input_state_button(INPUT_KEY_LEFT)) {
+		cinder_move_x(0.1);
+	}
+
+
 	for (int i = 0; i < MAX_CINDERS; ++i) {
 
 		cinders[i].pos.x += cinders[i].vel.x * dt;
@@ -93,7 +99,7 @@ void cinder_update(float dt) {
 			cinders[i].gravity_counter++;
 
 			if (cinders[i].gravity_counter >= cinders[i].gravity_threshold) {
-				cinders[i].vel.y++;
+				cinders[i].vel.y += 0.8f;
 
 				cinders[i].gravity_counter = 0;
 			}

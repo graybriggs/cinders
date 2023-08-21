@@ -1,6 +1,7 @@
 
 #include <stdint.h>
 #include <stdbool.h>
+#include <string.h>
 
 #include "input.h"
 
@@ -9,7 +10,8 @@ static const char* button_names[] = {
 	[INPUT_KEY_UP] = "UP",
 	[INPUT_KEY_DOWN] = "DOWN",
 	[INPUT_KEY_LEFT] = "LEFT",
-	[INPUT_KEY_RIGHT] = "RIGHT"
+	[INPUT_KEY_RIGHT] = "RIGHT",
+	[INPUT_KEY_G] = "G"
 };
 
 
@@ -23,19 +25,29 @@ void input_init() {
 
 void input_set_button_state(button_t button, float state) {
 	key_bindings[button];
-	// 
 }
 
 void input_set_button_pressed(button_t button) {
 
-	//if (button < 0 || button > INPUT_BUTTON_MAX)
-	//	print("Invaid button press");
+	if (button < 0 || button > INPUT_BUTTON_MAX) {
+		printf("Invaid button press\n");
+		return;
+	}
 
 	key_bindings[button] = true;
 }
 
-bool input_state(button_t state) {
-	key_bindings[state];
+void input_set_button_released(button_t button) {
+
+	if (button < 0 || button > INPUT_BUTTON_MAX) {
+		return;
+	}
+
+	key_bindings[button] = false;
+}
+
+bool input_state_button(button_t state) {
+	return key_bindings[state];
 }
 
 void input_clear_all_inputs() {
