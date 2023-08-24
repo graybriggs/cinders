@@ -37,6 +37,8 @@ void cinder_init() {
 void cinder_reset(uint32_t index) {
 	cinders[index].pos.x = (float)ORIGIN_X - 5 + rand() % 8;
 	cinders[index].pos.y = (float)ORIGIN_Y - 2 + rand() % 5;
+	cinders[index].width = 2;
+	cinders[index].height = 2;
 
 	//int velx = (-3 + rand() % 5) * 1.0f;
 	int velx = (-3 + rand() % 8) * 1.0f;
@@ -47,6 +49,7 @@ void cinder_reset(uint32_t index) {
 	cinders[index].vel.x = ca * velx - sa * vely;
 	cinders[index].vel.y = sa * velx + ca * vely;
 
+	//cinders[index].color = RED;
 	cinders[index].color = rand() % 6;
 	cinders[index].lifetime = 20 + rand() % lifetime;
 
@@ -115,7 +118,12 @@ void cinder_handle_input() {
 		cinder_move_y(0.1);
 	}
 	else if (input_state_button(INPUT_KEY_G)) {
-		cinder_gravity_toggle();
+		//cinder_gravity_toggle();
+		gravity = false;
+	}
+	else if (input_state_button(INPUT_KEY_H)) {
+		//cinder_gravity_toggle();
+		gravity = true;
 	}
 	else if (input_state_button(INPUT_KEY_X)) {
 		cinder_rotate_clockwise();

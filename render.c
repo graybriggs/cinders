@@ -18,9 +18,9 @@ void render_begin_frame() {
 	SDL_RenderClear(renderer);
 }
 
-void render_push_cinder(vec2 u, cinder_color col) {
-
-		switch (col) {
+void render_push_cinder(cinder cin) {
+		
+		switch (cin.color) {
 		case YELLOW:
 			SDL_SetRenderDrawColor(renderer, 255, 0, 255, 255);
 			break;
@@ -38,12 +38,12 @@ void render_push_cinder(vec2 u, cinder_color col) {
 			break;
 		}
 		
-		if (u.y >= 0 && u.y < 800) {
+		if (cin.pos.y >= 0 && cin.pos.y < 800) {
 			SDL_Rect r = {
-				.x = (Uint32)u.x,
-				.y = (Uint32)u.y,
-				.w = 2,
-				.h = 2
+				.x = (Uint32)cin.pos.x,
+				.y = (Uint32)cin.pos.y,
+				.w = cin.width,
+				.h = cin.height
 			};
 			SDL_RenderFillRect(renderer, &r);
 		}
